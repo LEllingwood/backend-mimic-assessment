@@ -48,16 +48,47 @@ import sys
 
 
 def mimic_dict(filename):
-    """Returns mimic dict mapping each word to list of words which follow it."""
-    # +++your code here+++
-    raise NotImplementedError("Get to Work!")
+    """Return mimic dict mapping each word to list of words which follow it."""
+
+    # create empty dict, read in file, split on the whitespace to get #words.
+
+    with open(filename, 'r') as f:
+        text = f.read()
+        words = text.split()
+
+    # Directions say "we'll say that the empty string is what comes before #the first word in the file" and "use the empty string as the first #word to prime things" so i'm creating an empty string
+
+    empty_string = ''
+    mimic_dict = {empty_string: [words[0]]}
+    # loop through the file looking for words following word.
+    for i, word in enumerate(words):
+        if word not in mimic_dict:
+            if i < len(words) - 2:
+                mimic_dict[word] = [words[i+1]]
+        else:
+            mimic_dict[word].append(words[i+1])
+    print (mimic_dict)
+    return mimic_dict
 
 
 def print_mimic(mimic_dict, word):
     """Given mimic dict and start word, prints 200 random words."""
-    # +++your code here+++
-    raise NotImplementedError("Get to Work!")
 
+    # for i in range(200):
+    #     print (word),
+    #     next_word = mimic_dict.get(word)          # Returns None if not found
+    #     if not next_word:
+    #         next_word = mimic_dict['']  # Fallback to '' if not found
+    #     word = random.choice(next_word)
+
+
+    # +++your code here+++
+    for i in range(200):
+        next_word = random.choice(mimic_dict[word])
+        if not next_word:
+            next_word = mimic_dict[""]
+        print(next_word),
+        word = next_word
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
